@@ -1,0 +1,6 @@
+[package]
+name = "succinct_tree"
+version = "0.1.0"
+authors = ["Keiichi Watanabe <udon.watanabe@gmail.com>"]
+
+[dependencies]
