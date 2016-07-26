@@ -1,5 +1,6 @@
 #[inline(always)]
-pub fn get_bitl(b: &u64, i: u8) -> u8 { // 左からi bit目を取得
+pub fn get_bitl(b: &u64, i: u8) -> u8 {
+    // 左からi bit目を取得
     ((b >> (63 - i)) & 1) as u8
 }
 

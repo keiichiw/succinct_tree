@@ -2,14 +2,18 @@ use util;
 use tree::Tree;
 use balanced_paren::BP;
 
+/**
+ * BP (balanced parentheses) Representation
+ */
+
 pub struct BPTree {
-    bp: BP
+    bp: BP,
 }
 
 impl BPTree {
     pub fn new(t: &Tree) -> Self {
         let p = util::left_align(Self::tree_to_bp(t.clone()));
-        BPTree{bp: BP::new(p)}
+        BPTree { bp: BP::new(p) }
     }
 
     pub fn ith_node(t: &Self, i: u8) -> u8 {
@@ -29,19 +33,16 @@ impl BPTree {
     fn tree_to_bp(t: Tree) -> u64 {
         match t {
             Tree::Leaf(_) => 0b10,
-            Tree::Node(_, children) =>
-            {
+            Tree::Node(_, children) => {
                 let mut bits: u64 = 0b1;
                 for child in children {
                     let c_bits = Self::tree_to_bp(child);
                     let c_size = format!("{:b}", c_bits).len();
                     bits = (bits << c_size) | c_bits;
-                };
+                }
                 bits <<= 1;
                 bits
             }
         }
     }
-
-
 }
