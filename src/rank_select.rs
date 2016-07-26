@@ -11,13 +11,13 @@ pub struct RankSelectIndex {
 
 impl RankSelectIndex {
 
-    pub fn new(b: u64) -> RankSelectIndex {
-        let (r1, r2) = RankSelectIndex::create_rank_index(b);
-        let tree = RankSelectIndex::create_select_index(b);
+    pub fn new(b: u64) -> Self {
+        let (r1, r2) = Self::create_rank_index(b);
+        let tree = Self::create_select_index(b);
         RankSelectIndex{b: b, r1: r1, r2: r2, tree: tree}
     }
 
-    pub fn rank(r: &RankSelectIndex, x: u8) -> u8 {
+    pub fn rank(r: &Self, x: u8) -> u8 {
         let a = r.r1[(x/36) as usize];
         let b = r.r2[(x/3)  as usize];
         if x == 63 {
@@ -33,7 +33,7 @@ impl RankSelectIndex {
         a + b + c
     }
 
-    pub fn select(s: &RankSelectIndex, x: u8) -> u8 {
+    pub fn select(s: &Self, x: u8) -> u8 {
         if s.tree[0] < x {
             return 100
         }

@@ -13,15 +13,15 @@ pub struct BP {
 
 impl BP {
 
-    pub fn new(p : u64) -> BP {
-        let (raw_b, p1) = BP::calc_p1(p);
+    pub fn new(p : u64) -> Self {
+        let (raw_b, p1) = Self::calc_p1(p);
         let p_idx = RankSelectIndex::new(p);
         let b = RankSelectIndex::new(raw_b);
         BP{p: p, p_idx: p_idx, b: b, p1: p1}
     }
 
     #[allow(dead_code)]
-    pub fn of_string(s : String) -> BP {
+    pub fn of_string(s : String) -> Self {
         let mut p = 0;
         for c in s.chars() {
             p <<= 1;
@@ -31,11 +31,11 @@ impl BP {
                 assert!(c == ')');
             }
         }
-        BP::new(left_align(p))
+        Self::new(left_align(p))
     }
 
 
-    pub fn find_close(bp: &BP, p_idx: u8) -> u8 {
+    pub fn find_close(bp: &Self, p_idx: u8) -> u8 {
         assert!(get_bitl(&bp.p, p_idx) == 1);
         if p_idx % 2 == 0 && get_bitl(&bp.p, p_idx+1) == 0 {
             // p[p_idx] is not far
@@ -50,7 +50,7 @@ impl BP {
             }
             p_star -= 1;
         }
-        let mut close_idx = BP::mu(p_star, &bp.b, bp.p1) as u8;
+        let mut close_idx = Self::mu(p_star, &bp.b, bp.p1) as u8;
         while depth_diff > 0 {
             if get_bitl(&bp.p, close_idx) == 0 {
                 depth_diff -= 1;
@@ -60,11 +60,11 @@ impl BP {
         close_idx
     }
 
-    pub fn ith_opening_paren(bp: &BP, i: u8) -> u8 {
+    pub fn ith_opening_paren(bp: &Self, i: u8) -> u8 {
         RankSelectIndex::select(&bp.p_idx, i+1)
     }
 
-    pub fn print(bp: &BP) {
+    pub fn print(bp: &Self) {
         let mut c = 0;
         for i in 0..64 {
             if get_bitl(&bp.p, i) == 0 {
@@ -84,7 +84,7 @@ impl BP {
     // private functions
     fn mu(i: u8, b: &RankSelectIndex, p1: u64) -> u8 {
         let r = RankSelectIndex::rank(b, i) - 1; // - 1が謎
-        let x = BP::naive_find_close(p1, r) + 1; // この +1 は多分必要. find_closeの返り値の最大値は N-1なので
+        let x = Self::naive_find_close(p1, r) + 1; // この +1 は多分必要. find_closeの返り値の最大値は N-1なので
         let y = RankSelectIndex::select(b, x as u8);
         y
     }
