@@ -3,9 +3,11 @@ mod util;
 mod rank_select;
 mod balanced_paren;
 mod bp_tree;
+mod dfuds_tree;
 use std::mem::size_of;
 use tree::*;
 use bp_tree::BPTree;
+use dfuds_tree::DFUDSTree;
 
 fn main() {
     let c1 = leaf(1);
@@ -14,10 +16,32 @@ fn main() {
     let c4 = leaf(10);
     let test_tree = node(0, vec!(c1, c2, c3, c4));
     println!("Tree: {:?}", test_tree);
-    let bptree = BPTree::new(test_tree);
+
+    // BP
+    println!("###BP###");
+    let bp_tree = BPTree::new(&test_tree);
+    BPTree::print(&bp_tree);
     println!("size_of(BPTree) = {}", size_of::<BPTree>());
+    println!("subtree size of each node");
     for i in 0..11 {
-        let sz = BPTree::subtree_size(&bptree, i);
-        println!("subtree size of child-{} = {:2}", i, sz);
+        let sz = BPTree::subtree_size(&bp_tree, i);
+        println!("id-{:2} : {:2}", i, sz);
     }
+
+    // DFUDS
+    println!("\n###DFUDS###");
+    let dfuds_tree = DFUDSTree::new(&test_tree);
+    DFUDSTree::print(&dfuds_tree);
+    println!("size_of(DFUDSTree) = {}", size_of::<DFUDSTree>());
+    println!("Print Edges");
+    for i in 0..11 {
+        let vi = DFUDSTree::ith_node(&dfuds_tree, i + 1);
+        let d = DFUDSTree::degree(&dfuds_tree, vi);
+        for j in 1..d {
+            let c = DFUDSTree::ith_child(&dfuds_tree, vi, j);
+            println!("{} -- {}", i, c);
+        }
+
+    }
+
 }

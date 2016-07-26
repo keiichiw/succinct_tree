@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Tree {
     Leaf(i32),
     Node(i32, Vec<Tree>),

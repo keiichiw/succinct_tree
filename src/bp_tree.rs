@@ -7,8 +7,8 @@ pub struct BPTree {
 }
 
 impl BPTree {
-    pub fn new(t: Tree) -> BPTree {
-        let p = util::left_align(BPTree::tree_to_bp(t));
+    pub fn new(t: &Tree) -> BPTree {
+        let p = util::left_align(BPTree::tree_to_bp(t.clone()));
         BPTree{bp: BP::new(p)}
     }
 
@@ -20,6 +20,10 @@ impl BPTree {
     pub fn subtree_size(t: &BPTree, i: u8) -> u8 {
         let root = BPTree::ith_node(t, i);
         (BP::find_close(&t.bp, root) - root + 1) / 2
+    }
+
+    pub fn print(t: &BPTree) {
+        BP::print(&t.bp);
     }
 
     fn tree_to_bp(t: Tree) -> u64 {

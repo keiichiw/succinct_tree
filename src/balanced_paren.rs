@@ -64,6 +64,23 @@ impl BP {
         RankSelectIndex::select(&bp.p_idx, i+1)
     }
 
+    pub fn print(bp: &BP) {
+        let mut c = 0;
+        for i in 0..64 {
+            if get_bitl(&bp.p, i) == 0 {
+                if c == 0 {
+                    break
+                }
+                print!(")");
+                c -= 1;
+            } else {
+                print!("(");
+                c += 1;
+            }
+        }
+        println!("");
+    }
+
     // private functions
     fn mu(i: u8, b: &RankSelectIndex, p1: u64) -> u8 {
         let r = RankSelectIndex::rank(b, i) - 1; // - 1が謎
