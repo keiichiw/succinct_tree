@@ -9,7 +9,7 @@ use rank_select::RankSelectIndex;
 
 pub struct DFUDSTree {
     dfuds: BP,
-    inv: RankSelectIndex,
+    inv: RankSelectIndex, // rank_) やselect_) を計算するためのindex
 }
 
 impl DFUDSTree {

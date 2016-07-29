@@ -87,8 +87,8 @@ impl BP {
 
     // private functions
     fn mu(i: u8, b: &RankSelectIndex, p1: u64) -> u8 {
-        let r = RankSelectIndex::rank(b, i) - 1; // - 1が謎
-        let x = Self::naive_find_close(p1, r) + 1; // この +1 は多分必要. find_closeの返り値の最大値は N-1なので
+        let r = RankSelectIndex::rank(b, i) - 1;
+        let x = Self::naive_find_close(p1, r) + 1;
         let y = RankSelectIndex::select(b, x as u8);
         y
     }

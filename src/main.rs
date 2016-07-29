@@ -18,10 +18,9 @@ fn main() {
     println!("Tree: {:?}", test_tree);
 
     // BP
-    println!("###BP###");
+    println!("===BP===");
     let bp_tree = BPTree::new(&test_tree);
     BPTree::print(&bp_tree);
-    println!("size_of(BPTree) = {}", size_of::<BPTree>());
     println!("subtree size of each node");
     for i in 0..11 {
         let sz = BPTree::subtree_size(&bp_tree, i);
@@ -29,10 +28,9 @@ fn main() {
     }
 
     // DFUDS
-    println!("\n###DFUDS###");
+    println!("\n===DFUDS===");
     let dfuds_tree = DFUDSTree::new(&test_tree);
     DFUDSTree::print(&dfuds_tree);
-    println!("size_of(DFUDSTree) = {}", size_of::<DFUDSTree>());
     println!("Print Edges");
     for i in 0..11 {
         let vi = DFUDSTree::ith_node(&dfuds_tree, i + 1);
